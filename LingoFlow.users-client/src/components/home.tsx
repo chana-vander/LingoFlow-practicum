@@ -121,14 +121,6 @@ const Home = () => {
                     </Toolbar>
                 </AppBar>
                 {/* תוכן בצד ימין */}
-                {/* <Box sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-end",
-                    textAlign: "left", // מגדיר את הטקסט בצד ימין
-                }}> */}
-                {/* <p style={{ color: '#d32f2f', fontSize: '24px', fontWeight: 'bold', margin: 0, padding: 0 }}>LingoFlow</p>
-                    <br /> */}
                 <p style={{ color: '#d32f2f', fontSize: '25px', marginLeft: "1000px" }}>!ללמוד בכיף, לדבר שוטף <br /> ...בואו ללמוד אנגלית בצורה חוויתית ועצמאית</p>
                 {/* </Box> */}
                 {/* תמונה מרכזית */}
@@ -153,8 +145,8 @@ const Home = () => {
                             height: "100%",
                             objectFit: "contain", // שמירה על איכות התמונה
                         }}
-                        initial={{ opacity: 0, scale: 1 }}
-                        animate={{ opacity: 1, scale: 1.1 }}
+                        // initial={{ opacity: 0, scale: 1 }}
+                        // animate={{ opacity: 1, scale: 1.1 }}
                         transition={{ duration: 1 }}
                     />
                 </Container>

@@ -11,11 +11,27 @@ using LingoFlow.Core.Models;
 using LingoFlow.Core;
 using AutoMapper;
 using DotNetEnv;
+using System.Collections;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddEnvironmentVariables(); // לוודא שהמערכת גם טוענת משתנים מה-ENV
 
 // טוען את משתני הסביבה מקובץ .env
 Env.Load();
+
+//foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
+//{
+//    Console.WriteLine($"{de.Key} = {de.Value}");
+//}
+
+//Console.WriteLine("JWT Key from ENV: " + Environment.GetEnvironmentVariable("JWT__Key"));
+//Console.WriteLine("JWT Issuer from ENV: " + Environment.GetEnvironmentVariable("JWT__Issuer"));
+//Console.WriteLine("JWT Audience from ENV: " + Environment.GetEnvironmentVariable("JWT__Audience"));
+
+
 
 // הוספת CORS עם הרשאה לכל המקורות
 builder.Services.AddCors(options =>
@@ -54,12 +70,15 @@ builder.Services.AddSwaggerGen();
 // הגדרת AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
-// הגדרת JWT Authentication
-//var jwtKey = Environment.GetEnvironmentVariable("JWT__Key");
-//if (string.IsNullOrEmpty(jwtKey))
-//{
-//    throw new InvalidOperationException("JWT Key is missing from configuration.");
-//}
+
+
+//הגדרת JWT Authentication
+var jwtKey = Environment.GetEnvironmentVariable("JWT__Key");
+Console.WriteLine("JWT__Key " + jwtKey);
+if (string.IsNullOrEmpty(jwtKey))
+{
+    throw new InvalidOperationException("JWT Key is missing from configuration.");
+}
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -72,7 +91,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = Environment.GetEnvironmentVariable("JWT__Issuer"),
             ValidAudience = Environment.GetEnvironmentVariable("JWT__Audience"),
-            //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
     });
 

@@ -17,16 +17,24 @@ public class AuthService : IAuthService
         _configuration = configuration;
         _context = context;
     }
+
     public string GenerateJwtToken(string username, string role)
     {
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+        // טוען את המפתח הסודי מהמשתנה הסביבתי
+        var jwtKey = Environment.GetEnvironmentVariable("JWT__Key");
+        if (string.IsNullOrEmpty(jwtKey))
+        {
+            throw new Exception("JWT Key is not configured in environment variables.");
+        }
+
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.Name, username),
-        new Claim(ClaimTypes.Role, role) // הוספת תפקיד אחד בלבד
-    };
+        {
+            new Claim(ClaimTypes.Name, username),
+            new Claim(ClaimTypes.Role, role) // הוספת תפקיד אחד בלבד
+        };
 
         var token = new JwtSecurityToken(
             issuer: _configuration["Jwt:Issuer"],
@@ -38,5 +46,4 @@ public class AuthService : IAuthService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
-    
 }

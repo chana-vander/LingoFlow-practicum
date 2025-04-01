@@ -15,7 +15,7 @@ public class TokenService : ITokenService
     public TokenService(IConfiguration configuration)
     {
         // קריאה להגדות קונפיגורציה
-        _jwtSecret = configuration["Jwt:Secret"] ?? throw new Exception("JWT Secret is not configured.");
+        _jwtSecret = Environment.GetEnvironmentVariable("JWT__Key") ?? throw new Exception("JWT Secret is not configured.");
         _jwtIssuer = configuration["Jwt:Issuer"] ?? throw new Exception("JWT Issuer is not configured.");
         _jwtAudience = configuration["Jwt:Audience"] ?? throw new Exception("JWT Audience is not configured.");
         _jwtExpiryHours = int.TryParse(configuration["Jwt:ExpiryHours"], out var expiryHours) ? expiryHours : 2; // ברירת מחדל של 2 שעות

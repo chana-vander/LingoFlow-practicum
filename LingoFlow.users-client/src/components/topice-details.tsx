@@ -1,43 +1,3 @@
-// import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import Word from "../models/word";
-
-// const Details = () => {
-//     const { id } = useParams(); // 👈 שליפת ה-id מהנתיב
-//     const [words, setWords] = useState<Word[]>([]);
-//     const [subjectname, setSubjectName] = useState<string>("");
-
-//     useEffect(() => {
-//         // דמוי קריאה ל-API כדי להוריד את נושאי השיחה
-//         fetch(`http://localhost:5092/api/Word/subject/${id}`) // כתובת ה-API שמחזירה את נושאי השיחה
-//             .then(response => response.json())
-//             .then(data => setWords(data))
-//             .catch(error => console.error('Error fetching words:', error));
-//     }, [id]);
-
-//     useEffect(() => {
-//         fetch(`http://localhost:5092/api/Subject/${id}`)
-//             .then(res => res.json())
-//             .then(data => setSubjectName(data.name))
-//             .catch(error => console.error('Error fetching subject name: ', error));
-//     }, [id]);
-
-//     return (<>
-//         <h1>{subjectname}</h1>
-//         <h2>Vocabulary</h2>
-//         {/* הצגת המילים שהתקבלו */}
-//         <ol>
-//             {words.length > 0 ? (
-//                 words.map((word, index) => (
-//                     <li key={index}>{word.name}- {word.translation}</li> // נניח של-Word יש תכונה text
-//                 )))
-//                 : (<p>No words found.</p>)
-//             }
-//         </ol>
-//     </>)
-// }
-// export default Details;
-
 //MUI
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -207,3 +167,46 @@ const Details = () => {
 };
 
 export default Details;
+
+
+
+// import { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
+// import Word from "../models/word";
+
+// const Details = () => {
+//     const { id } = useParams(); // 👈 שליפת ה-id מהנתיב
+//     const [words, setWords] = useState<Word[]>([]);
+//     const [subjectname, setSubjectName] = useState<string>("");
+
+//     useEffect(() => {
+//         // דמוי קריאה ל-API כדי להוריד את נושאי השיחה
+//         fetch(`http://localhost:5092/api/Word/subject/${id}`) // כתובת ה-API שמחזירה את נושאי השיחה
+//             .then(response => response.json())
+//             .then(data => setWords(data))
+//             .catch(error => console.error('Error fetching words:', error));
+//     }, [id]);
+
+//     useEffect(() => {
+//         fetch(`http://localhost:5092/api/Subject/${id}`)
+//             .then(res => res.json())
+//             .then(data => setSubjectName(data.name))
+//             .catch(error => console.error('Error fetching subject name: ', error));
+//     }, [id]);
+
+//     return (<>
+//         <h1>{subjectname}</h1>
+//         <h2>Vocabulary</h2>
+//         {/* הצגת המילים שהתקבלו */}
+//         <ol>
+//             {words.length > 0 ? (
+//                 words.map((word, index) => (
+//                     <li key={index}>{word.name}- {word.translation}</li> // נניח של-Word יש תכונה text
+//                 )))
+//                 : (<p>No words found.</p>)
+//             }
+//         </ol>
+//     </>)
+// }
+// export default Details;
+
