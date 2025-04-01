@@ -55,11 +55,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // הגדרת JWT Authentication
-var jwtKey = Environment.GetEnvironmentVariable("JWT__Key");
-if (string.IsNullOrEmpty(jwtKey))
-{
-    throw new InvalidOperationException("JWT Key is missing from configuration.");
-}
+//var jwtKey = Environment.GetEnvironmentVariable("JWT__Key");
+//if (string.IsNullOrEmpty(jwtKey))
+//{
+//    throw new InvalidOperationException("JWT Key is missing from configuration.");
+//}
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -72,7 +72,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = Environment.GetEnvironmentVariable("JWT__Issuer"),
             ValidAudience = Environment.GetEnvironmentVariable("JWT__Audience"),
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+            //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
     });
 
